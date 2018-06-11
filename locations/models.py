@@ -1,17 +1,18 @@
 from django.db import models
-
-# Create your models here.
-# !/usr/bin/env python
-# -*- coding: UTF-8 -*-
-
-__author__ = 'helljump'
-
-from django.db import models
 from django.contrib.auth.models import User
 
 
 class Location(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    STATUS_CHOICES = (
+        ("ON", "on"),
+        ("OFF", "off"),
+        ("STANDBY", "standby")
+    )
+
+    status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="off")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    device_id = models.CharField(max_length=40, null=True)
     lat = models.FloatField()
     lng = models.FloatField()
     alt = models.FloatField()
@@ -21,4 +22,5 @@ class Location(models.Model):
         return "%s at %f,%f" % (self.user, self.lat, self.lng)
 
     class Meta:
-        ordering = ('-time', 'user')
+        ordering = ('pk', 'user')
+       # get_latest_by = ('pk')

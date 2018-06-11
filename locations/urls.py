@@ -1,14 +1,7 @@
-#!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
-__author__ = "helljump"
-
-from django.urls import path, include
-
-
 from django.urls import path
-from .views import map_view
+from .views import map_view, locations_data
 
 urlpatterns = [
     path('', map_view, name='map_views'),
+    path('locations_data', locations_data, name='locations_data'),
 ]

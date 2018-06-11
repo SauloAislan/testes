@@ -1,23 +1,14 @@
 #!/usr/bin/env python
-#-*- coding: UTF-8 -*-
-
-__author__ = 'helljump'
-
-
 
 from django.conf.urls import *
 from django.urls import path, re_path
 from django.contrib import admin
-from django.contrib.auth import login
-from django.views.generic import TemplateView
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
-from rest_framework import routers
-
 from locations import views
+
 
 @api_view(['GET'])
 def test_view(request, format=None):
@@ -46,7 +37,7 @@ urlpatterns = [
     re_path(r'^login-error/$', login_error),
     re_path(r'^test-view/$', test_view),
     path('', include('locations.urls')),
-    path('index/<lat>/<lng>', views.send),
+    path('index/<device_id>/<lat>/<lng>', views.send),
     re_path(r'^api/locations/$', views.LocationList.as_view()),
 ]
 
